@@ -1,0 +1,18 @@
+snippet yaml "在Markdown文档头部插入YAML文档信息" b
+---
+title: ${1:`!p snip.rv = "{0}".format(fn[:-3])`}
+author: ${2:taster}
+date: `date +'%Y-%m-%d %T'`
+weekday: 周`date +'%a'`
+tags:
+	- ${3}
+---
+
+# ${1:`!p snip.rv = "{0}".format(fn[:-3])`}
+endsnippet
+
+snippet cbl "Codeblock"
+\`\`\`${0:language}
+$1
+\`\`\`
+endsnippet
