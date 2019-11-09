@@ -10,11 +10,20 @@ This is my neovim configuration file, use `vim-plug` as vim plugin manager, and 
     - python-mode
 - File Manager
     - nerdtree
+    - tagbar
 - Snippet
     - vim-snippets
     - ultisnips
 - LaTeX
     - vimtex
+- comment
+    - nerdcommneter
+- git
+    - vim-fugitive
+- autojump
+    - easymotion
+- welcome page
+    - vim-startify
 
 ## How to install?
 

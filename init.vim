@@ -52,6 +52,13 @@ nnoremap <leader>t :term<cr>
 noremap <leader>y "+y
 noremap <leader>p "+p
 
+" 补全窗口
+set completeopt=menu,menuone
+highlight PMenu ctermfg=0 ctermbg=242 guifg=black guibg=darkgrey
+highlight PMenuSel ctermfg=242 ctermbg=8 guifg=darkgrey guibg=darkgrey
+
+filetype plugin on
+
 " Vim-Plug
 call plug#begin('~/.vim/plugged')
     Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
@@ -70,10 +77,6 @@ call plug#begin('~/.vim/plugged')
 
     " YouCompleteMe
     Plug 'Valloric/YouCompleteMe', {'do': './install.py'}
-    " 补全窗口
-    set completeopt=menu,menuone
-    highlight PMenu ctermfg=0 ctermbg=242 guifg=black guibg=darkgrey
-    highlight PMenuSel ctermfg=242 ctermbg=8 guifg=darkgrey guibg=darkgrey
 
     " snippet
     Plug 'SirVer/ultisnips'
@@ -96,5 +99,44 @@ call plug#begin('~/.vim/plugged')
     let g:pymode_python = 'python3'
     let g:pymode_options_colorcolumn = 0
     let g:pymode_options_max_line_length = 120
+
+    " nerdcommenter
+    Plug 'scrooloose/nerdcommenter'
+    " Add spaces after comment delimiters by default
+    let g:NERDSpaceDelims = 1
+
+    " Use compact syntax for prettified multi-line comments
+    let g:NERDCompactSexyComs = 1
+
+    " Align line-wise comment delimiters flush left instead of following code indentation
+    let g:NERDDefaultAlign = 'left'
+
+    " Set a language to use its alternate delimiters by default
+    let g:NERDAltDelims_java = 1
+
+    " Add your own custom formats or override the defaults
+    let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+
+    " Allow commenting and inverting empty lines (useful when commenting a region)
+    let g:NERDCommentEmptyLines = 1
+
+    " Enable trimming of trailing whitespace when uncommenting
+    let g:NERDTrimTrailingWhitespace = 1
+
+    " Enable NERDCommenterToggle to check all selected lines is commented or not
+    let g:NERDToggleCheckAllLines = 1
+
+    " easymotion
+    Plug 'easymotion/vim-easymotion'
+    
+    " vim-startify
+    Plug 'mhinz/vim-startify'
+
+    " tag-bar (it requires exuberant-ctags)
+    Plug 'majutsushi/tagbar', {'do': 'sudo apt install exuberant-ctags'}
+    let g:tagbar_ctags_bin = '/usr/bin/ctags'
+
+    " fugitive
+    Plug 'tpope/vim-fugitive'
 call plug#end()
 
