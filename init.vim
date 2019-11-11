@@ -62,10 +62,10 @@ filetype plugin on
 " Vim-Plug
 call plug#begin('~/.vim/plugged')
     Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
-    Plug 'godlygeek/tabular', {'for': 'markdown'}
     " vim-markdown
+    Plug 'godlygeek/tabular', {'for': 'markdown'}
     Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
-    let g:vim_markdown_folding_disabled = 0
+    let g:vim_markdown_folding_disabled = 1
 
     " vimtex plugin
     Plug 'lervag/vimtex', {'for': 'tex'}
@@ -99,6 +99,16 @@ call plug#begin('~/.vim/plugged')
     let g:pymode_python = 'python3'
     let g:pymode_options_colorcolumn = 0
     let g:pymode_options_max_line_length = 120
+    " Disable all warning
+    let g:pymode_lint_ignore = ['W']
+    " Disable Qiuckfix window
+    let g:pymode_lint_cwindow = 0
+    let g:pymode_folding = 1
+
+    " vim-autoformat
+    Plug 'Chiel92/vim-autoformat', {'for': 'python'}
+    let g:formatter_yapf_style = 'pep8'
+    au BufWrite *.py :Autoformat
 
     " nerdcommenter
     Plug 'scrooloose/nerdcommenter'
@@ -128,15 +138,38 @@ call plug#begin('~/.vim/plugged')
 
     " easymotion
     Plug 'easymotion/vim-easymotion'
-    
+
     " vim-startify
     Plug 'mhinz/vim-startify'
 
     " tag-bar (it requires exuberant-ctags)
-    Plug 'majutsushi/tagbar', {'do': 'sudo apt install exuberant-ctags'}
+    Plug 'majutsushi/tagbar'
     let g:tagbar_ctags_bin = '/usr/bin/ctags'
 
     " fugitive
     Plug 'tpope/vim-fugitive'
+
+    " " auto-complete
+    " Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    "
+    " silent! au BufEnter,BufRead,BufNewFile * silent! unmap if
+    " let g:coc_global_extensions = ['coc-python', 'coc-vimlsp', 'coc-emmet', 'coc-html', 'coc-json', 'coc-css', 'coc-tsserver', 'coc-yank', 'coc-lists', 'coc-gitignore']
+    " set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+    " " use <tab> for trigger completion and navigate to the next complete item
+    " function! s:check_back_space() abort
+    "     let col = col('.') - 1
+    "     return !col || getline('.')[col - 1]	=~ '\s'
+    " endfunction
+    " inoremap <silent><expr> <C-n>
+    "             \ pumvisible() ? "\<C-n>" :
+    "             \ <SID>check_back_space() ? "\<Tab>" :
+    "             \ coc#refresh()
+    " inoremap <expr> <C-p> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+    " " Useful commands
+    " nnoremap <silent> gd <Plug>(coc-definition)
+    " nnoremap <silent> gy <Plug>(coc-type-definition)
+    " nnoremap <silent> gi <Plug>(coc-implementation)
+    " nnoremap <silent> gr <Plug>(coc-references)
+    " nnoremap <leader>rn <Plug>(coc-rename)
 call plug#end()
 
