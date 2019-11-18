@@ -2,16 +2,17 @@ let SessionLoad = 1
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
-cd ~/
+cd ~/.config/nvim
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +0 .vimrc
+badd +14 required_package.sh
+badd +0 ./init/init-plugins.vim
 argglobal
 silent! argdel *
-$argadd .vimrc
-edit .vimrc
+$argadd required_package.sh
+edit ./init/init-plugins.vim
 set splitbelow splitright
 set nosplitbelow
 set nosplitright
@@ -30,11 +31,11 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 151 - ((42 * winheight(0) + 36) / 72)
+let s:l = 70 - ((26 * winheight(0) + 36) / 73)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-151
+70
 normal! 0
 tabnext 1
 if exists('s:wipebuf') && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'

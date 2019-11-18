@@ -3,7 +3,7 @@
 This is my neovim configuration file, use `vim-plug` as vim plugin manager, and use several plugins to deal with my diary programming requirements.
 
 - Auto Compelete
-    - YouCompleteMe
+    - coc.vim
 - Markdown
     - vim-markdown
 - Python
@@ -47,5 +47,7 @@ This is my neovim configuration file, use `vim-plug` as vim plugin manager, and 
     ```vim
     PlugInstall
     ```
+
+4. run `sudo ~/.config/nvim/required_package.sh`, install required package for plugins.
 
 Wait for a second, and enjoy your new vim!

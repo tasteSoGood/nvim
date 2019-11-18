@@ -1,181 +1,32 @@
-" vimrc 配置文件
-" 本文件将在多个平台上同步，形成一个统一风格的vim
-" 本文件中的配置项可通过 :h configuration_name 来查看详细说明
+" vim configuration file
+" created by taster
+"
+" 本配置文件将遵循模块化的原则，分块加载各种任务的配置文件
+" 其他配置文件都存放在 ./init/*.vim 中
 
-" 关于编码的配置
-set encoding=utf-8
+" 避免重复加载
+if get(s:, 'loaded', 0) != 0
+    finish
+else
+    let s:loaded = 1
+endif
 
-" 有关缩进的配置
-set autoindent
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
-set expandtab
+" 本文件所在目录
+let s:home = fnamemodify(resolve(expand('<sfile>:p')), ':h')
 
-" 关于外观的配置
-set number
-set relativenumber
+" 定义加载命令
+command! -nargs=1 LoadConfig exec 'source '.s:home.'/'.'<args>'
 
-" 查找的时候忽略大小写
-set ignorecase
+"-----------------------------------------------------------------
+" load modules
+"-----------------------------------------------------------------
 
-" 搜索到的文本高亮
-set hlsearch
-
-" 括号匹配
-set showmatch
-
-" 设置鼠标可用
-set mouse=a
-
-" 字体颜色
-hi commet ctermfg=6
-hi string ctermfg=green
-
-" 界面配色
-colorscheme elflord
-
-" Mapping
-let mapleader = " "
-nnoremap <silent><leader>ev :vsplit $MYVIMRC<cr>
-nnoremap <silent><leader>sv :w \| source $MYVIMRC<cr>
-
-noremap H ^
-noremap L $
-noremap ^ <nop>
-noremap $ <nop>
-
-" 上下移动整行
-nnoremap <silent><M-j> :.m.+1<cr>
-nnoremap <silent><M-k> :.m.-2<cr>
-vnoremap <silent><M-j> :m '>+1<cr>gv=gv
-vnoremap <silent><M-k> :m '<-2<cr>gv=gv
-
-" 分屏打开终端
-nnoremap <silent><M-t> :sp<cr>:term<cr>
-
-" 系统剪切板
-noremap <leader>y "+y
-noremap <leader>p "+p
-
-" 补全窗口
-set completeopt=menu,menuone
-highlight PMenu ctermfg=0 ctermbg=242 guifg=black guibg=darkgrey
-highlight PMenuSel ctermfg=242 ctermbg=8 guifg=darkgrey guibg=darkgrey
-
-filetype plugin on
-
-" Vim-Plug
-call plug#begin('~/.vim/plugged')
-    Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
-    " vim-markdown
-    Plug 'godlygeek/tabular', {'for': 'markdown'}
-    Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
-    let g:vim_markdown_folding_disabled = 1
-
-    " vimtex plugin
-    Plug 'lervag/vimtex', {'for': 'tex'}
-    let g:vimtex_fold_enabled = 1
-    let g:vimtex_view_method = 'zathura'
-    let g:vimtex_quickfix_latexlog = {'default': 0}
-    let g:vimtex_quickfix_mode = 0
-    let g:vimtex_quickfix_open_on_warning = 0
-
-    " YouCompleteMe
-    Plug 'Valloric/YouCompleteMe', {'do': './install.py'}
-
-    " snippet
-    Plug 'SirVer/ultisnips'
-    Plug 'honza/vim-snippets'
-    Plug 'ervandew/supertab'
-    " 将Ctrl+空格作为代码片段补全的快捷键
-    let g:UltiSnipsExpandTrigger = '<C-space>'
-    let g:UltiSnipsJumpForwardTrigger = '<C-space>'
-    let g:UltiSnipsJumpBackwardTrigger = '<S-C-space>'
-    let g:UltiSnipsSnippetDirextories = ['~/.vim/UltiSnips/', '~/.vim/plugged/vim-snippets/UltiSnips/']
-    let g:UltiSnipsEditSplit = "vertical"
-    " 下面这一行如果不设置，ultisnips将无法对TeX文件补全
-    let g:tex_flavor = "latex"
-
-    " fzf
-    Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install -all'}
-
-    " python-mode
-    Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
-    let g:pymode_python = 'python3'
-    let g:pymode_options_colorcolumn = 0
-    let g:pymode_options_max_line_length = 120
-    " Disable all warning
-    let g:pymode_lint_ignore = ['W']
-    " Disable Qiuckfix window
-    let g:pymode_lint_cwindow = 0
-    let g:pymode_folding = 1
-
-    " vim-autoformat
-    Plug 'Chiel92/vim-autoformat', {'for': 'python'}
-    let g:formatter_yapf_style = 'pep8'
-    au BufWrite *.py :Autoformat
-
-    " nerdcommenter
-    Plug 'scrooloose/nerdcommenter'
-    " Add spaces after comment delimiters by default
-    let g:NERDSpaceDelims = 1
-
-    " Use compact syntax for prettified multi-line comments
-    let g:NERDCompactSexyComs = 1
-
-    " Align line-wise comment delimiters flush left instead of following code indentation
-    let g:NERDDefaultAlign = 'left'
-
-    " Set a language to use its alternate delimiters by default
-    let g:NERDAltDelims_java = 1
-
-    " Add your own custom formats or override the defaults
-    let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
-
-    " Allow commenting and inverting empty lines (useful when commenting a region)
-    let g:NERDCommentEmptyLines = 1
-
-    " Enable trimming of trailing whitespace when uncommenting
-    let g:NERDTrimTrailingWhitespace = 1
-
-    " Enable NERDCommenterToggle to check all selected lines is commented or not
-    let g:NERDToggleCheckAllLines = 1
-
-    " easymotion
-    Plug 'easymotion/vim-easymotion'
-
-    " vim-startify
-    Plug 'mhinz/vim-startify'
-
-    " tag-bar (it requires exuberant-ctags)
-    Plug 'majutsushi/tagbar'
-    let g:tagbar_ctags_bin = '/usr/bin/ctags'
-
-    " fugitive
-    Plug 'tpope/vim-fugitive'
-
-    " " auto-complete
-    " Plug 'neoclide/coc.nvim', {'branch': 'release'}
-    "
-    " silent! au BufEnter,BufRead,BufNewFile * silent! unmap if
-    " let g:coc_global_extensions = ['coc-python', 'coc-vimlsp', 'coc-emmet', 'coc-html', 'coc-json', 'coc-css', 'coc-tsserver', 'coc-yank', 'coc-lists', 'coc-gitignore']
-    " set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-    " " use <tab> for trigger completion and navigate to the next complete item
-    " function! s:check_back_space() abort
-    "     let col = col('.') - 1
-    "     return !col || getline('.')[col - 1]	=~ '\s'
-    " endfunction
-    " inoremap <silent><expr> <C-n>
-    "             \ pumvisible() ? "\<C-n>" :
-    "             \ <SID>check_back_space() ? "\<Tab>" :
-    "             \ coc#refresh()
-    " inoremap <expr> <C-p> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-    " " Useful commands
-    " nnoremap <silent> gd <Plug>(coc-definition)
-    " nnoremap <silent> gy <Plug>(coc-type-definition)
-    " nnoremap <silent> gi <Plug>(coc-implementation)
-    " nnoremap <silent> gr <Plug>(coc-references)
-    " nnoremap <leader>rn <Plug>(coc-rename)
-call plug#end()
+" 基本设置
+LoadConfig init/init-basic.vim
+" 自定义快捷键
+LoadConfig init/init-keymap.vim
+" 主题 颜色
+LoadConfig init/init-theme.vim
+" 插件加载
+LoadConfig init/init-plugins.vim
 
