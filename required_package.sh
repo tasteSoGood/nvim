@@ -2,7 +2,7 @@
 # 各种插件的依赖包
 
 # coc.vim
-pip3 install python-language-server
+pip3 install python-language-server flake8
 
 # tagbar
 sudo apt install exuberant-ctags

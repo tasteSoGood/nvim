@@ -24,6 +24,8 @@ This is my neovim configuration file, use `vim-plug` as vim plugin manager, and 
     - easymotion
 - welcome page
     - vim-startify
+- color scheme
+    - gruvbox
 
 ## How to install?
 

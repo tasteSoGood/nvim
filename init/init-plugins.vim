@@ -31,6 +31,8 @@ call plug#begin('~/.vim/plugged')
     Plug 'tpope/vim-fugitive'
     " coc for auto-complete
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    " color-scheme
+    Plug 'morhetz/gruvbox'
 call plug#end()
 
 "-------------------------------
@@ -119,7 +121,7 @@ let g:tagbar_ctags_bin = '/usr/bin/ctags'
 " coc.vim
 "-------------------------------
 silent! au BufEnter,BufRead,BufNewFile * silent! unmap if
-let g:coc_global_extensions = ['coc-python', 'coc-vimlsp', 'coc-emmet', 'coc-html', 'coc-json', 'coc-css', 'coc-tsserver', 'coc-yank', 'coc-lists', 'coc-gitignore']
+let g:coc_global_extensions = ['coc-pyls', 'coc-git', 'coc-vimlsp', 'coc-json', 'coc-yank', 'coc-lists', 'coc-gitignore']
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 " use <tab> for trigger completion and navigate to the next complete item
 function! s:check_back_space() abort
@@ -137,3 +139,12 @@ nnoremap <silent> gy <Plug>(coc-type-definition)
 nnoremap <silent> gi <Plug>(coc-implementation)
 nnoremap <silent> gr <Plug>(coc-references)
 nnoremap <leader>rn <Plug>(coc-rename)
+
+
+"-------------------------------
+" gruvbox
+"-------------------------------
+colorscheme gruvbox
+set background=dark
+let g:gruvbox_contrast_light = 'hard'
+
